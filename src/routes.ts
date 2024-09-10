@@ -110,11 +110,12 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
 
 
     console.log(`We received: ${title}, ${author}, ${year}, ${description}`);
+    res.render('receivebook', {title});
 
 };
 
 
-export const sendUser = (req: Request, res: Response): void | boolean => {
+export const sendUser = async (req: Request, res: Response): Promise <void | boolean> => {
 
     const errors = validationResult(req);
    
@@ -144,6 +145,29 @@ export const sendUser = (req: Request, res: Response): void | boolean => {
 
         res.send("Insert a valid book and a valid genre");
         return false;
+
+    };
+
+    try {
+        
+        const connectSystem = await createPool.getConnection();
+
+        try {
+
+            const insertDATAUSER = 'INSERT INTO useroptions (username, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)';
+
+            await connectSystem.query(insertDATAUSER, [username, email, favoritebook, favoritegenre]);
+
+        } finally {
+
+            connectSystem.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("An error ocurred: ", e);
+        throw new Error("Something went wrong. Try again.");
 
     };
 

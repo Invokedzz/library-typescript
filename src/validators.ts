@@ -18,7 +18,7 @@ export const publishBookValidator = [
         .withMessage("The description must be a string with at least 10 characters"),
 
     body('year')
-        .isInt({ min: 1900, max: new Date().getFullYear() })
+        .isInt({ min: 1000, max: new Date().getFullYear() })
         .withMessage('Insert a valid year'),
 
 ];

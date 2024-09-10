@@ -1,5 +1,9 @@
 import express from "express";
 
+const app = express();
+
+app.use(express.static('public'));
+
 import { engine } from "express-handlebars";
 
 import { useraccount } from "./routes";
@@ -22,8 +26,6 @@ import { publishBookValidator } from "./validators";
 
 import path from "path";
 
-const app = express();
-
 app.engine('handlebars', engine({
 
     defaultLayout: 'main',
@@ -33,7 +35,6 @@ app.engine('handlebars', engine({
 
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '../views'));
-app.use(express.static('public'));
 
 const port = process.env.PORT || 3000;
 
@@ -61,7 +62,7 @@ export class server {
         this.middlewares();
 
         app.post('/receiveaccount', sendUserValidator, sendUser);
-        app.post('/receivebook', publishBookValidator, publishBook);
+        app.post('/bookreceived', publishBookValidator, publishBook);
 
     };
 
