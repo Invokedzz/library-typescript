@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import validator from "validator";
 
-import { body, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 
 import dotenv from "dotenv";
 
@@ -56,7 +56,12 @@ export const useraccount = (req: Request, res: Response): void => {
 
 export const publishBook = (req: Request, res: Response): void | boolean => {
 
+    const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.array() });
+        return false;
+    };
 
     const title: string = req.body.title;
 
@@ -71,19 +76,17 @@ export const publishBook = (req: Request, res: Response): void | boolean => {
 
 };
 
-export const publishBookValidator = [
-
-    body('title').isLength({min: 6}).isString().withMessage("The title must be a string with at least 6 characters"),
-
-    body('author').isLength({min: 4}).isString().withMessage("The author name must be a string with at least 4 characters"),
-
-    body('description').isLength({min: 200}).isString().withMessage("The description must be a string with at least 200 characters"),
-
-    body('year').isInt({ min: 1900, max: new Date().getFullYear()}).withMessage('Insert a valid year'),
-
-];
 
 export const sendUser = (req: Request, res: Response): void | boolean => {
+
+    const errors = validationResult(req);
+   
+    if (!errors.isEmpty()) {
+
+        res.status(400).json({ errors: errors.array() });
+        return false;
+
+    };
 
     const username: string = req.body.username;
 
@@ -93,18 +96,20 @@ export const sendUser = (req: Request, res: Response): void | boolean => {
 
     const favoritegenre: string = req.body.favoritegenre;
 
+    if (!validator.isEmail(email) && !username) {
+        
+        res.send("Insert a valid email and a valid username");
+        return false;
+
+    };
+
+    if (!favoritebook && !favoritegenre) {
+
+        res.send("Insert a valid book and a valid genre");
+        return false;
+
+    };
 
     console.log(`We received: ${username}, ${email}, ${favoritebook}, ${favoritegenre}`);
 
 };
-
-export const sendUserValidator = [
-
-    body('username').isLength({min: 3}).isString().withMessage("Username must be a string with at least 3 characters"),
-
-    body('email').isEmail().isString().withMessage("Must be a valid E-mail."),
-
-    body('favoritebook').isLength({min: 5}).isString().withMessage("Must be a string with at least 5 characters"),
-
-    body('favoritegenre').isLength({min: 3}).isString().withMessage("Must be a string with at least 3 characters"),
-];
