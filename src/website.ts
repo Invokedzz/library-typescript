@@ -6,6 +6,8 @@ import { useraccount } from "./routes";
 
 import { homepage } from "./routes";
 
+import { booklist } from "./routes";
+
 import { addbook } from "./routes";
 
 import path from "path";
@@ -15,7 +17,7 @@ const app = express();
 app.engine('handlebars', engine({
 
     defaultLayout: 'main',
-    partialsDir: path.join(__dirname, 'views/partials'),
+    partialsDir: path.join(__dirname, '../views/partials'),
 
 }));
 
@@ -39,6 +41,7 @@ export class server {
         app.get('/', homepage);
         app.get('/insertbook', addbook);
         app.get('/profile', useraccount);
+        app.get('/list', booklist);
 
     };
 

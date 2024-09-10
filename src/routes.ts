@@ -8,6 +8,10 @@ export const addbook = (req: Request, res: Response): void => {
     res.render('addbook');
 };
 
+export const booklist = (req: Request, res: Response): void => {
+    res.render('booklist');
+};
+
 export const useraccount = (req: Request, res: Response): void => {
     res.render('useraccount');
 };
