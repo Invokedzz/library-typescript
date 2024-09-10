@@ -18,6 +18,10 @@ import { booklist } from "./routes";
 
 import { addbook } from "./routes";
 
+import { sendUserValidator } from "./routes";
+
+import { publishBookValidator } from "./routes";
+
 import path from "path";
 
 const app = express();
@@ -59,8 +63,8 @@ export class server {
 
         this.middlewares();
 
-        app.post('/receiveaccount', sendUser);
-        app.post('/receivebook', publishBook);
+        app.post('/receiveaccount', sendUser, sendUserValidator);
+        app.post('/receivebook', publishBook, publishBookValidator);
 
     };
 
