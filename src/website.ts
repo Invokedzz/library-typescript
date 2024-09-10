@@ -4,6 +4,10 @@ import { engine } from "express-handlebars";
 
 import { useraccount } from "./routes";
 
+import helmet from "helmet";
+
+import csurf from "csurf";
+
 import { sendUser } from "./routes";
 
 import { publishBook } from "./routes";
@@ -33,10 +37,12 @@ const port = process.env.PORT || 3000;
 
 export class server {
 
-    private configExpress (): void {
+    private middlewares(): void {
 
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
+        app.use(helmet());
+        app.use(csurf({ cookie: false }));
 
     };
 
@@ -51,7 +57,7 @@ export class server {
 
     private serverPOSTmethod (): void {
 
-        this.configExpress();
+        this.middlewares();
 
         app.post('/receiveaccount', sendUser);
         app.post('/receivebook', publishBook);

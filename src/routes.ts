@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 
 import validator from "validator";
 
+import { body, validationResult } from "express-validator";
+
 import dotenv from "dotenv";
 
 import mysql from "mysql2/promise";
@@ -24,6 +26,7 @@ const createPool = mysql.createPool({
     queueLimit: 0,
 
 });
+
 
 export const homepage = (req: Request, res: Response): void => {
 
@@ -53,23 +56,16 @@ export const useraccount = (req: Request, res: Response): void => {
 
 export const publishBook = (req: Request, res: Response): void | boolean => {
 
+
+
     const title: string = req.body.title;
 
     const author: string = req.body.author;
 
-    const year: number = req.body.year;
-
     const description: string = req.body.description;
 
-    if (title.length <= 3 && author.length <= 5) {
-        res.send("Invalid Title or Author");
-        return false;
-    };
+    const year: number = req.body.year;
 
-    if (description.length >= 200 && typeof year !== "number") {
-        res.send("Invalid Year or Description");
-        return false;  
-    };
 
     console.log(`We received: ${title}, ${author}, ${year}, ${description}`);
 
@@ -85,15 +81,6 @@ export const sendUser = (req: Request, res: Response): void | boolean => {
 
     const favoritegenre: string = req.body.favoritegenre;
 
-    if (!validator.isEmail(email) && username.length <= 3) {
-        res.send("Invalid Email or Username");
-        return false;
-    };
-
-    if (!favoritebook && !favoritegenre) {
-        res.send("Invalid Favorite Book or Genre");
-        return false;
-    };
 
     console.log(`We received: ${username}, ${email}, ${favoritebook}, ${favoritegenre}`);
 
