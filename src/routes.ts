@@ -51,7 +51,7 @@ export const useraccount = (req: Request, res: Response): void => {
 
 // As function for POST requests
 
-export const publishBook = (req: Request, res: Response): void => {
+export const publishBook = (req: Request, res: Response): void | boolean => {
 
     const title: string = req.body.title;
 
@@ -61,9 +61,21 @@ export const publishBook = (req: Request, res: Response): void => {
 
     const description: string = req.body.description;
 
+    if (title.length <= 3 && author.length <= 5) {
+        res.send("Invalid Title or Author");
+        return false;
+    };
+
+    if (description.length >= 200 && typeof year !== "number") {
+        res.send("Invalid Year or Description");
+        return false;  
+    };
+
+    console.log(`We received: ${title}, ${author}, ${year}, ${description}`);
+
 };
 
-export const sendUser = (req: Request, res: Response): void => {
+export const sendUser = (req: Request, res: Response): void | boolean => {
 
     const username: string = req.body.username;
 
@@ -73,7 +85,16 @@ export const sendUser = (req: Request, res: Response): void => {
 
     const favoritegenre: string = req.body.favoritegenre;
 
-    if (!validator.isEmail(email) && !username) res.send("Invalid Email or Username");
+    if (!validator.isEmail(email) && username.length <= 3) {
+        res.send("Invalid Email or Username");
+        return false;
+    };
+
+    if (!favoritebook && !favoritegenre) {
+        res.send("Invalid Favorite Book or Genre");
+        return false;
+    };
+
     console.log(`We received: ${username}, ${email}, ${favoritebook}, ${favoritegenre}`);
 
 };
