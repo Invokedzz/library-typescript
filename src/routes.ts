@@ -9,11 +9,11 @@ import dotenv from "dotenv";
 import mysql from "mysql2/promise";
 
 dotenv.config({
-    path: __dirname + 'file.env' });
+    path: __dirname + '/file.env' });
 
 const userKey = process.env.SQL_USER;
 
-const passKey = process.env.SQL_PASS;
+const passKey = process.env.SQL_PASSWORD;
 
 const createPool = mysql.createPool({
 
@@ -54,7 +54,7 @@ export const useraccount = (req: Request, res: Response): void => {
 
 // As function for POST requests
 
-export const publishBook = (req: Request, res: Response): void | boolean => {
+export const publishBook = async (req: Request, res: Response): Promise <void | boolean> => {
 
     const errors = validationResult(req);
 
@@ -82,6 +82,29 @@ export const publishBook = (req: Request, res: Response): void | boolean => {
 
         res.send("Insert a valid author and a valid description.");
         return false;
+
+    };
+
+    try {
+
+        const connectSystem = await createPool.getConnection();
+
+        try {
+
+        const insertDATA = `INSERT INTO bookoptions (title, author, year, description) VALUES (?, ?, ?, ?)`;
+
+        await connectSystem.query(insertDATA, [title, author, year, description]);
+
+        } finally {
+
+            connectSystem.release();
+
+        };
+
+    } catch (e) {
+
+        console.error(`An error ocurred, ${e}`);
+        throw new Error("Something went wrong!");
 
     };
 

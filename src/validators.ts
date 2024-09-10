@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 export const publishBookValidator = [
-    
+
     body('title')
         .isString()
         .isLength({ min: 6 })
@@ -14,8 +14,8 @@ export const publishBookValidator = [
 
     body('description')
         .isString()
-        .isLength({ min: 100 })
-        .withMessage("The description must be a string with at least 100 characters"),
+        .isLength({ min: 10 ,max: 20 })
+        .withMessage("The description must be a string with at least 10 characters"),
 
     body('year')
         .isInt({ min: 1900, max: new Date().getFullYear() })
