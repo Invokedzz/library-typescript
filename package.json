@@ -1,0 +1,30 @@
+{
+  "name": "library-typescript",
+  "version": "1.0.0",
+  "description": "Sistema de bibliotecas para treino de CRUD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/interfaces.ts",
+    "dev": "ts-node ./src/interfaces.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mysql": "^2.15.26",
+    "express": "^4.20.0",
+    "express-handlebars": "^8.0.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.1",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/validator": "^13.12.1",
+    "tsx": "^4.19.0",
+    "validator": "^13.12.0"
+  }
+}
