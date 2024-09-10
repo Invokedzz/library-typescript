@@ -71,6 +71,20 @@ export const publishBook = (req: Request, res: Response): void | boolean => {
 
     const year: number = req.body.year;
 
+    if (isNaN(year) && !title) {
+
+        res.send("Insert a valid year and a valid title.");
+        return false;
+
+    };
+
+    if (!author && !description) {
+
+        res.send("Insert a valid author and a valid description.");
+        return false;
+
+    };
+
 
     console.log(`We received: ${title}, ${author}, ${year}, ${description}`);
 
