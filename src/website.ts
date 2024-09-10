@@ -4,6 +4,10 @@ import { engine } from "express-handlebars";
 
 import { useraccount } from "./routes";
 
+import { sendUser } from "./routes";
+
+import { publishBook } from "./routes";
+
 import { homepage } from "./routes";
 
 import { booklist } from "./routes";

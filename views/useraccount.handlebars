@@ -5,13 +5,6 @@
 
                 <h2>User Profile Settings</h2>
             <form action="updateaccount.html" method="post" class="profile-form" enctype="multipart/form-data">
-                <div class="form-group profile-picture">
-                    <label for="profile-pic">Profile Picture:</label>
-                    <div class="profile-pic-container">
-                        <img id="profile-pic-preview" src="default-profile.png" alt="Profile Picture">
-                    </div>
-                    <input type="file" id="profile-pic" name="profile-pic" accept="image/*" onchange="previewImage(event)">
-                </div>
                 
                 <div class="form-group">
                     <label for="username">Username:</label>
@@ -24,13 +17,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">New Password:</label>
-                    <input type="password" id="password" name="password">
+                    <label for="text">Favorite book:</label>
+                    <input type="text" name="favoritebook">
                 </div>
                 
                 <div class="form-group">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password">
+                    <label for="confirm-password">Favorite genre:</label>
+                    <input type="text" name="favoritegenre">
                 </div>
                 
                 <button type="submit">Update Profile</button>
