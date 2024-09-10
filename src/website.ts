@@ -51,11 +51,18 @@ export class server {
 
     private serverPOSTmethod (): void {
 
+        this.configExpress();
+
+        app.post('/receiveaccount', sendUser);
+        app.post('/receivebook', publishBook);
+
     };
 
     public listen (): void {
 
         this.serverGETmethod();
+        
+        this.serverPOSTmethod();
 
         app.listen (port, (): void => {
             console.log(`http://localhost:${port}`);
