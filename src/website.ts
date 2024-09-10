@@ -50,8 +50,8 @@ export class server {
     private serverGETmethod (): void {
 
         app.get('/', homepage);
-        app.get('/insertbook', addbook);
-        app.get('/profile', useraccount);
+        app.get('/insertbook', publishBookValidator, addbook);
+        app.get('/profile', sendUserValidator, useraccount);
         app.get('/list', booklist);
 
     };
@@ -60,8 +60,8 @@ export class server {
 
         this.middlewares();
 
-        app.post('/receiveaccount', sendUser, sendUserValidator);
-        app.post('/receivebook', publishBook, publishBookValidator);
+        app.post('/receiveaccount', sendUserValidator, sendUser);
+        app.post('/receivebook', publishBookValidator, publishBook);
 
     };
 
