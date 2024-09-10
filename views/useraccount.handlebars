@@ -1,0 +1,40 @@
+ <section>
+        <div class="chatblock">
+    
+            <div class="box">
+
+                <h2>User Profile Settings</h2>
+            <form action="updateaccount.html" method="post" class="profile-form" enctype="multipart/form-data">
+                <div class="form-group profile-picture">
+                    <label for="profile-pic">Profile Picture:</label>
+                    <div class="profile-pic-container">
+                        <img id="profile-pic-preview" src="default-profile.png" alt="Profile Picture">
+                    </div>
+                    <input type="file" id="profile-pic" name="profile-pic" accept="image/*" onchange="previewImage(event)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="CurrentUsername" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="user@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password">
+                </div>
+                
+                <button type="submit">Update Profile</button>
+            </form>
+
+            </div>
+    </section>
