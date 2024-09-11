@@ -78,33 +78,54 @@ body {
     font-weight: bold;
 }
 
-/* Container for the list of books */
 .book-list {
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap to the next line if needed */
-    gap: 20px; /* Space between book items */
+    flex-wrap: wrap;
+    gap: 20px;
     margin: 0;
     padding: 0;
 }
 
-/* Individual book item styling */
 .book-item {
-    flex: 1 1 300px; /* Flex-grow, flex-shrink, and flex-basis */
+    flex: 1 1 300px;
     display: flex;
-    flex-direction: column; /* Arrange content vertically within the book item */
+    flex-direction: column;
     padding: 15px;
     border: 1px solid #dddddd81;
     border-radius: 8px;
     background-color: #454343;
 }
 
-/* Book title styling */
+button.delete {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button.delete:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+button.delete:active {
+    background-color: #a93226;
+}
+
+button.delete:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5); 
+}
+
 .book-item h3 {
     margin-top: 0;
     margin-bottom: 10px;
 }
 
-/* Book details styling */
 .book-item p {
     margin: 5px 0;
 }

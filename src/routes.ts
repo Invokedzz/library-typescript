@@ -108,8 +108,9 @@ export const useraccount = async (req: Request, res: Response): Promise <void | 
 
         try {
 
-            const [rowsusers] = await connect.query("SELECT * FROM users WHERE id = ?", [id]);
-            res.render('useraccount', {users: rowsusers});
+            await connect.query("SELECT * FROM users WHERE id = ?", [id]);
+            
+            res.render('useraccount', {id});
 
         } finally {
 
@@ -196,86 +197,77 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
 
 };
 
-
-export const sendUser = async (req: Request, res: Response): Promise <void | boolean> => {
-
+export const sendUser = async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
-   
+
     if (!errors.isEmpty()) {
-
         res.status(400).json({ errors: errors.array() });
-        return false;
-
-    };
+        return;
+    }
 
     const name: string = req.body.name;
-
     const email: string = req.body.email;
-
     const favoritebook: string = req.body.favoritebook;
-
     const favoritegenre: string = req.body.favoritegenre;
+    const id: string = req.params.id;
 
-    const id = req.params.id;
+    if (!validator.isEmail(email) || !name) {
+        res.status(400).send("Insert a valid email and a valid username.");
+        return;
+    }
 
-    if (!validator.isEmail(email) && !name) {
-        
-        res.send("Insert a valid email and a valid username");
-        return false;
-
-    };
-
-    if (!favoritebook && !favoritegenre) {
-
-        res.send("Insert a valid book and a valid genre");
-        return false;
-
-    };
+    if (!favoritebook || !favoritegenre) {
+        res.status(400).send("Insert a valid book and a valid genre.");
+        return;
+    }
 
     try {
-        
-        const connectSystem = await createPool.getConnection();
+        const connection = await createPool.getConnection();
 
         try {
+            
+            const [existingUserByName] = await connection.query('SELECT 1 FROM users WHERE name = ? AND id != ?', [name, id]);
+            const [existingUserByEmail] = await connection.query('SELECT 1 FROM users WHERE email = ? AND id != ?', [email, id]);
 
-            const [rowusers] = await connectSystem.query('SELECT 1 FROM users WHERE name = ?', [name]);
+            if ((existingUserByName as any[]).length > 0) {
 
-            const [rowemail] = await connectSystem.query('SELECT 1 FROM users WHERE email = ?', [email]);
+                res.status(400).send("This user already exists in the system.");
+                return;
 
-            if ((rowusers as any []).length > 0) {
+            }
 
-                res.send("This user already exists in the system");
-                return false;
+            if ((existingUserByEmail as any[]).length > 0) {
 
-            };
+                res.status(400).send("This email already exists in the system.");
+                return;
 
-            if ((rowemail as any []).length > 0) {
+            }
 
-                res.send("This e-mail already exists in the system");
-                return false;
+            const updateUserQuery = `
+                UPDATE users
+                SET name = ?, email = ?, favoritebook = ?, favoritegenre = ?
+                WHERE id = ?
+            `;
+            await connection.query(updateUserQuery, [name, email, favoritebook, favoritegenre, id]);
 
-            };
-
-            const [rowsbooks] = await connectSystem.query('SELECT 1 FROM books WHERE id = ?', [id]);
-
-            const insertDATAUSER = 'INSERT INTO users (name, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)';
-
-            await connectSystem.query(insertDATAUSER, [name, email, favoritebook, favoritegenre]);
-
-            res.redirect(`/profile/:${rowsbooks}`);
-            return true;
+            res.render('useraccount', {
+                id,
+                name,
+                email,
+                favoritebook,
+                favoritegenre
+            });
 
         } finally {
 
-            connectSystem.release();
+            connection.release();
 
         };
 
     } catch (e) {
 
-        console.error("An error ocurred: ", e);
-        throw new Error("Something went wrong. Try again.");
+        console.error("An error occurred: ", e);
+        res.status(500).send("Something went wrong. Try again.");
 
     };
-
 };

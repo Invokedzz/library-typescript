@@ -1,33 +1,30 @@
- <section>
-        <div class="chatblock">
-    
-            <div class="box">
-
-                <h2>User Profile Settings</h2>
-            <form action="/profile/:"{{rowsbooks}} method="POST" class="profile-form">
-                
+<section>
+    <div class="chatblock">
+        <div class="box">
+            <h2>User Profile Settings</h2>
+            <form action="/profile/{{id}}" method="POST" class="profile-form">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" name="name" placeholder="Username">
+                    <input type="text" name="name" placeholder="Username" value="{{name}}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="user@example.com" required>
+                    <input type="email" name="email" placeholder="user@example.com" value="{{email}}" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="text">Favorite book:</label>
-                    <input type="text" name="favoritebook" placeholder="Song of Ice and Fire" required>
+                    <label for="favoritebook">Favorite book:</label>
+                    <input type="text" name="favoritebook" placeholder="Song of Ice and Fire" value="{{favoritebook}}" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="confirm-password">Favorite genre:</label>
-                    <input type="text" name="favoritegenre" placeholder="Fantasy" required>
+                    <label for="favoritegenre">Favorite genre:</label>
+                    <input type="text" name="favoritegenre" placeholder="Fantasy" value="{{favoritegenre}}" required>
                 </div>
                 
                 <button type="submit">Update Profile</button>
             </form>
-
-            </div>
-    </section>
+        </div>
+    </div>
+</section>
