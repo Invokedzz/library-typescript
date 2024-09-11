@@ -66,9 +66,31 @@ export const booklist = async (req: Request, res: Response): Promise <void | boo
 
 };
 
-export const useraccount = (req: Request, res: Response): void => {
+export const useraccount = async (req: Request, res: Response): Promise <void | boolean> => {
 
-    res.render('useraccount');
+    const id = req.params.id;
+    
+    try {
+
+        const connect = await createPool.getConnection();
+
+        try {
+
+            const [getid] = await connect.query(`SELECT * FROM users WHERE id = ${id}`);
+            res.render('useraccount', {user: getid});
+
+        } finally {
+
+            connect.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again");
+
+    };
     
 };
 
@@ -154,7 +176,7 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
     };
 
-    const username: string = req.body.username;
+    const name: string = req.body.name;
 
     const email: string = req.body.email;
 
@@ -162,7 +184,7 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
     const favoritegenre: string = req.body.favoritegenre;
 
-    if (!validator.isEmail(email) && !username) {
+    if (!validator.isEmail(email) && !name) {
         
         res.send("Insert a valid email and a valid username");
         return false;
@@ -182,7 +204,7 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
         try {
 
-            const [rowusers] = await connectSystem.query('SELECT 1 FROM users WHERE username = ?', [username]);
+            const [rowusers] = await connectSystem.query('SELECT 1 FROM users WHERE name = ?', [name]);
 
             const [rowemail] = await connectSystem.query('SELECT 1 FROM users WHERE email = ?', [email]);
 
@@ -200,9 +222,9 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
             };
 
-            const insertDATAUSER = 'INSERT INTO users (username, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)';
+            const insertDATAUSER = 'INSERT INTO users (name, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)';
 
-            await connectSystem.query(insertDATAUSER, [username, email, favoritebook, favoritegenre]);
+            await connectSystem.query(insertDATAUSER, [name, email, favoritebook, favoritegenre]);
 
         } finally {
 
@@ -210,7 +232,7 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
         };
 
-        res.render('receiveuser', {username});
+        res.render('receiveuser', {name});
         return true;
 
     } catch (e) {

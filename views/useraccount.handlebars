@@ -4,26 +4,26 @@
             <div class="box">
 
                 <h2>User Profile Settings</h2>
-            <form action="/receiveaccount" method="POST" class="profile-form">
+            <form action="/receiveaccount/:id" method="POST" class="profile-form">
                 
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <input type="text" name="name" placeholder="Username" value={{user.username}}>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="user@example.com" required>
+                    <input type="email" name="email" placeholder="user@example.com" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="text">Favorite book:</label>
-                    <input type="text" name="favoritebook" placeholder="Song of Ice and Fire">
+                    <input type="text" name="favoritebook" placeholder="Song of Ice and Fire" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="confirm-password">Favorite genre:</label>
-                    <input type="text" name="favoritegenre" placeholder="Fantasy">
+                    <input type="text" name="favoritegenre" placeholder="Fantasy" required>
                 </div>
                 
                 <button type="submit">Update Profile</button>

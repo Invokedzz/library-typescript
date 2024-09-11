@@ -52,7 +52,7 @@ export class server {
 
         app.get('/', homepage);
         app.get('/insertbook', publishBookValidator, addbook);
-        app.get('/profile', sendUserValidator, useraccount);
+        app.get('/profile/:id', sendUserValidator, useraccount);
         app.get('/list', booklist);
 
     };
@@ -61,7 +61,7 @@ export class server {
 
         this.middlewares();
 
-        app.post('/receiveaccount', sendUser, sendUserValidator);
+        app.post("/receiveaccount/:id", sendUser, sendUserValidator);
         app.post('/bookreceived', publishBookValidator, publishBook);
 
     };
