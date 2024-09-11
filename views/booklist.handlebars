@@ -4,6 +4,17 @@
 
                 <h2>List of Books</h2>
 
+            <div class="book-list">
+                {{#each books}}
+                    <div class="book-item">
+                        <h3>{{title}}</h3>
+                        <p><strong>Author:</strong> {{author}}</p>
+                        <p><strong>Year:</strong> {{year}}</p>
+                        <p><strong>Description:</strong> {{description}}</p>
+                    </div>
+                {{/each}}
+            </div>
+
             </div>
         </div>
     </section>

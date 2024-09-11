@@ -40,9 +40,29 @@ export const addbook = (req: Request, res: Response): void => {
 
 };
 
-export const booklist = (req: Request, res: Response): void => {
+export const booklist = async (req: Request, res: Response): Promise <void | boolean> => {
 
-    res.render('booklist');
+    try {
+
+        const connect = await createPool.getConnection();
+
+        try {
+
+            const [rowsbooks] = await connect.query("SELECT * FROM books");
+            res.render('booklist', {books: rowsbooks});
+
+        } finally {
+
+            connect.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again!");
+
+    };
 
 };
 
@@ -91,7 +111,16 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
 
         try {
 
-        const insertDATA = `INSERT INTO bookoptions (title, author, year, description) VALUES (?, ?, ?, ?)`;
+        const [rowsbooks] = await connectSystem.query('SELECT 1 FROM books WHERE title = ?', [title]);
+        
+        if ((rowsbooks as any[]).length > 0) {
+
+            res.send("This book already exists in the system");
+            return false;
+
+        };
+
+        const insertDATA = `INSERT INTO books (title, author, year, description) VALUES (?, ?, ?, ?)`;
 
         await connectSystem.query(insertDATA, [title, author, year, description]);
 
@@ -153,7 +182,25 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
         try {
 
-            const insertDATAUSER = 'INSERT INTO useroptions (username, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)';
+            const [rowusers] = await connectSystem.query('SELECT 1 FROM users WHERE username = ?', [username]);
+
+            const [rowemail] = await connectSystem.query('SELECT 1 FROM users WHERE email = ?', [email]);
+
+            if ((rowusers as any []).length > 0) {
+
+                res.send("This user already exists in the system");
+                return false;
+
+            };
+
+            if ((rowemail as any []).length > 0) {
+
+                res.send("This e-mail already exists in the system");
+                return false;
+
+            };
+
+            const insertDATAUSER = 'INSERT INTO users (username, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)';
 
             await connectSystem.query(insertDATAUSER, [username, email, favoritebook, favoritegenre]);
 

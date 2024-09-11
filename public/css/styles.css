@@ -78,6 +78,38 @@ body {
     font-weight: bold;
 }
 
+/* Container for the list of books */
+.book-list {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line if needed */
+    gap: 20px; /* Space between book items */
+    margin: 0;
+    padding: 0;
+}
+
+/* Individual book item styling */
+.book-item {
+    flex: 1 1 300px; /* Flex-grow, flex-shrink, and flex-basis */
+    display: flex;
+    flex-direction: column; /* Arrange content vertically within the book item */
+    padding: 15px;
+    border: 1px solid #dddddd81;
+    border-radius: 8px;
+    background-color: #454343;
+}
+
+/* Book title styling */
+.book-item h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Book details styling */
+.book-item p {
+    margin: 5px 0;
+}
+
+
 .followinglink:hover {
     background-color: #0056b3;
 }
