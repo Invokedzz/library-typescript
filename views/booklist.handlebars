@@ -7,10 +7,14 @@
             <div class="book-list">
                 {{#each books}}
                     <div class="book-item">
+                        <p>{{id}}</p>
                         <h3>{{title}}</h3>
                         <p><strong>Author:</strong> {{author}}</p>
                         <p><strong>Year:</strong> {{year}}</p>
                         <p><strong>Description:</strong> {{description}}</p>
+                        <form action="/deletebook/{{id}}" method="POST">
+                        <button type="submit" class="delete">Delete</button>
+                        </form>
                     </div>
                 {{/each}}
             </div>

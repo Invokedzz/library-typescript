@@ -4,11 +4,11 @@
             <div class="box">
 
                 <h2>User Profile Settings</h2>
-            <form action="/receiveaccount/:id" method="POST" class="profile-form">
+            <form action="/profile/:"{{rowsbooks}} method="POST" class="profile-form">
                 
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" name="name" placeholder="Username" value={{user.username}}>
+                    <input type="text" name="name" placeholder="Username">
                 </div>
                 
                 <div class="form-group">

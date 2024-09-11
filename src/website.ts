@@ -14,6 +14,8 @@ import { homepage } from "./routes";
 
 import { booklist } from "./routes";
 
+import { deletebook } from "./routes";
+
 import { addbook } from "./routes";
 
 import { sendUserValidator } from "./validators";
@@ -52,7 +54,7 @@ export class server {
 
         app.get('/', homepage);
         app.get('/insertbook', publishBookValidator, addbook);
-        app.get('/profile/:id', sendUserValidator, useraccount);
+        app.get('/profile', sendUserValidator, useraccount);
         app.get('/list', booklist);
 
     };
@@ -63,6 +65,7 @@ export class server {
 
         app.post("/receiveaccount/:id", sendUser, sendUserValidator);
         app.post('/bookreceived', publishBookValidator, publishBook);
+        app.post('/deletebook/:id', deletebook);
 
     };
 
