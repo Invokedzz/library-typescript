@@ -101,16 +101,15 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
 
         };
 
+        res.render('receivebook', {title});
+        return true;
+
     } catch (e) {
 
         console.error(`An error ocurred, ${e}`);
         throw new Error("Something went wrong!");
 
     };
-
-
-    console.log(`We received: ${title}, ${author}, ${year}, ${description}`);
-    res.render('receivebook', {title});
 
 };
 

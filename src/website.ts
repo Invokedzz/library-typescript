@@ -1,9 +1,5 @@
 import express from "express";
 
-const app = express();
-
-app.use(express.static('public'));
-
 import { engine } from "express-handlebars";
 
 import { useraccount } from "./routes";
@@ -25,6 +21,10 @@ import { sendUserValidator } from "./validators";
 import { publishBookValidator } from "./validators";
 
 import path from "path";
+
+const app = express();
+
+app.use(express.static('public'));
 
 app.engine('handlebars', engine({
 
@@ -61,7 +61,7 @@ export class server {
 
         this.middlewares();
 
-        app.post('/receiveaccount', sendUserValidator, sendUser);
+        app.post('/receiveaccount', sendUser, sendUserValidator);
         app.post('/bookreceived', publishBookValidator, publishBook);
 
     };
