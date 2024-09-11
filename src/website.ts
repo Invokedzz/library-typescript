@@ -36,7 +36,7 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, '../views'));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8443;
 
 export class server {
 
