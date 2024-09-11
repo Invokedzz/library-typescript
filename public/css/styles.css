@@ -67,6 +67,20 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
 
+.followinglink {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.followinglink:hover {
+    background-color: #0056b3;
+}
 
 .box {
     color: #e0e0e0;
