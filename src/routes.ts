@@ -163,13 +163,14 @@ export const sendUser = async (req: Request, res: Response): Promise <void | boo
 
         };
 
+        res.render('receiveuser', {username});
+        return true;
+
     } catch (e) {
 
         console.error("An error ocurred: ", e);
         throw new Error("Something went wrong. Try again.");
 
     };
-
-    console.log(`We received: ${username}, ${email}, ${favoritebook}, ${favoritegenre}`);
 
 };
