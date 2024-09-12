@@ -9,9 +9,15 @@
                 <a href="/list">
                     <li>List of Books</li>
                 </a>
+                {{#if userCreated}}
                 <a href="/profile">
-                    <li>Account</li>
+                    <li>Profile</li>
                 </a>
+                {{else}}
+                <a href="/profile">
+                    <li>Create Account</li>
+                </a>
+                {{/if}}
             </ul>
         </header>
     </article>

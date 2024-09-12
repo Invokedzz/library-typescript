@@ -213,3 +213,53 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
     };
 
 };
+
+export const useraccount = (req: Request, res: Response): void => {
+
+    res.render('useraccount');
+
+};
+
+export const createprofile = async (req: Request, res: Response): Promise <void> => {
+    
+    const id = req.params.id;
+
+    const name: string = req.body.name;
+
+    const email = req.body.email;
+
+    const favoritegenre = req.body.favoritegenre;
+
+    const favoritebook = req.body.favoritebook;
+
+    let userCreated = false;
+
+    try {
+
+        const connect = await createPool.getConnection();
+
+        try {
+
+            await connect.query('INSERT INTO users (name, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)', [name, email, favoritebook, favoritegenre]);
+            const [valueid] =await connect.query('SELECT * FROM users WHERE id = ?', [id]);
+            userCreated = true;
+            res.render('receiveuser', {name, email, favoritebook, favoritegenre, valueid, userCreated});
+
+        } finally {
+
+            connect.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("Something went wrong: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
+
+};
+
+export const sendUser = (req: Request, res: Response): void => {
+
+};
