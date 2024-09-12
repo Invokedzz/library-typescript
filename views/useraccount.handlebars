@@ -5,12 +5,12 @@
             <form action="/profile/{{id}}" method="POST" class="profile-form">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" name="name" placeholder="Username" value="{{name}}" required>
+                    <input type="text" name="name" placeholder="Username" value="{{this.name}}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="user@example.com" value="{{email}}" required>
+                    <input type="email" name="email" placeholder="user@example.com" value="{{this.email}}" required>
                 </div>
                 
                 <div class="form-group">
@@ -23,7 +23,7 @@
                     <input type="text" name="favoritegenre" placeholder="Fantasy" value="{{favoritegenre}}" required>
                 </div>
                 
-                <button type="submit">Update Profile</button>
+                <button type="submit">Save</button>
             </form>
         </div>
     </div>
