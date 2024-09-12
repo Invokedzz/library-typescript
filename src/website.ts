@@ -26,7 +26,6 @@ import {
 
      } from "./validators";
 
-import { validatebody } from "./validationmiddleware";
 
 import path from "path";
 
@@ -76,11 +75,11 @@ export class server {
 
         this.middlewares();
 
-        app.post('/senduser', sendUserValidator, validatebody, createprofile);
+        app.post('/senduser', sendUserValidator, createprofile);
 
-        app.post('/bookreceived', publishBookValidator, validatebody, publishBook);
+        app.post('/bookreceived', publishBookValidator, publishBook);
 
-        app.post('/editbook/:id', validatebody, editbookPOST);
+        app.post('/editbook/:id', editbookPOST);
 
         app.post('/deletebook/:id', deletebook);
 

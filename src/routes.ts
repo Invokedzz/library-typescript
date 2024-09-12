@@ -94,13 +94,26 @@ export const editbookPOST = async (req: Request, res: Response): Promise <void> 
 
     const id = req.params.id;
 
-    const title = req.body.title;
+    const title: string = req.body.title;
 
-    const author = req.body.author;
+    const author: string = req.body.author;
 
-    const description = req.body.description;
+    const description: string = req.body.description;
 
-    const year = req.body.year;
+    const year: number = req.body.year;
+
+    if (validator.isEmpty(title) && validator.isEmpty(author)) {
+
+        res.send("Title and author are required");
+        return;
+    };
+
+    if (validator.isEmpty(description) && isNaN(year)) {
+
+        res.send("Description and year are required");
+        return;
+
+    };
 
     try {
 
@@ -116,7 +129,7 @@ export const editbookPOST = async (req: Request, res: Response): Promise <void> 
 
 };
 
-export const deletebook = async (req: Request, res: Response): Promise <void | boolean> => {
+export const deletebook = async (req: Request, res: Response): Promise <void> => {
 
     const id = req.params.id;
 
@@ -230,6 +243,20 @@ export const createprofile = async (req: Request, res: Response): Promise <void>
 
     const favoritegenre: string = req.body.favoritegenre;
 
+    if (!validator.isEmail(email) && validator.isEmpty(name)) {
+
+        res.send("Insert a valid e-mail and a valid name.");
+        return;
+
+    };
+
+    if (validator.isEmpty(favoritebook) && validator.isEmpty(favoritegenre)) {
+
+        res.send("Insert a valid favorite book and a valid favorite genre.");
+        return;
+
+    };
+
     try {
 
         const connect = await createPool.getConnection();
@@ -286,6 +313,8 @@ export const senduserID = async (req: Request, res: Response): Promise <void> =>
     };
 
 };
+
+// Um dia posso fazer mais funcionalidades, sei la
 
 export const edituserprofile = async (req: Request, res: Response): Promise <void> => {
 
