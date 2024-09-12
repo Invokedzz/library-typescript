@@ -11,11 +11,11 @@
                         <p><strong>Author:</strong> {{author}}</p>
                         <p><strong>Year:</strong> {{year}}</p>
                         <p><strong>Description:</strong> {{description}}</p>
-                        <form action="/deletebook/{{id}}" method="POST">
-                        <button type="submit" class="delete">Delete</button>
-                        </form>
                         <form action="/editbook/{{id}}" method="GET">
                         <button type="submit" class="edit">Edit</button>
+                        </form>
+                        <form action="/deletebook/{{id}}" method="POST">
+                        <button type="submit" class="delete">Delete</button>
                         </form>
                     </div>
                 {{/each}}
