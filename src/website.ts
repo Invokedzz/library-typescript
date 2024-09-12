@@ -12,6 +12,8 @@ import { editbook } from "./routes";
 
 import { publishBook } from "./routes";
 
+import { editbookPOST } from "./routes";
+
 import { homepage } from "./routes";
 
 import { booklist } from "./routes";
@@ -68,6 +70,7 @@ export class server {
 
         app.post("/receiveaccount/:id", sendUser, sendUserValidator);
         app.post('/bookreceived', publishBookValidator, publishBook);
+        app.post('/editbook/:id', editbookPOST);
         app.post('/deletebook/:id', deletebook);
 
     };

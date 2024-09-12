@@ -45,6 +45,7 @@ export const booklist = async (req: Request, res: Response): Promise <void | boo
     try {
 
         const connect = await createPool.getConnection();
+        
         const id = req.params.id;
 
         try {
@@ -89,9 +90,29 @@ export const editbook = async (req: Request, res: Response): Promise <void> => {
 
 };
 
-export const editbookPOST = async (req: Request, res: Response): Promise <void | boolean> => {
+export const editbookPOST = async (req: Request, res: Response): Promise <void> => {
 
     const id = req.params.id;
+
+    const title = req.body.title;
+
+    const author = req.body.author;
+
+    const description = req.body.description;
+
+    const year = req.body.year;
+
+    try {
+
+        await createPool.query("UPDATE books SET title = ?, author = ?, description = ?, year = ? WHERE id = ?", [title, author, description, year, id]);
+        res.redirect('/list');
+
+    } catch (e) {
+
+        console.error("Something went wrong with the update: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 
@@ -222,6 +243,7 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
 
 };
 
+// Tem que arrumar o debaixo
 export const sendUser = async (req: Request, res: Response): Promise<void> => {
     const errors = validationResult(req);
 
@@ -236,12 +258,12 @@ export const sendUser = async (req: Request, res: Response): Promise<void> => {
     const favoritegenre: string = req.body.favoritegenre;
     const id: string = req.params.id;
 
-    if (!validator.isEmail(email) || !name) {
+    if (!validator.isEmail(email) && !name) {
         res.status(400).send("Insert a valid email and a valid username.");
         return;
     }
 
-    if (!favoritebook || !favoritegenre) {
+    if (!favoritebook && !favoritegenre) {
         res.status(400).send("Insert a valid book and a valid genre.");
         return;
     }
