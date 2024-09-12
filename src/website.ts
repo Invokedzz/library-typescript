@@ -59,10 +59,15 @@ export class server {
     private serverGETmethod (): void {
 
         app.get('/', homepage);
+        
         app.get('/insertbook', publishBookValidator, addbook);
+
         app.get('/profile', sendUserValidator, useraccount);
+
         app.get('/newprofile', sendUserValidator, senduserID);
+
         app.get('/list', booklist);
+
         app.get('/editbook/:id', editbook);
 
     };
@@ -72,8 +77,11 @@ export class server {
         this.middlewares();
 
         app.post('/senduser', sendUserValidator, createprofile);
+
         app.post('/bookreceived', publishBookValidator, publishBook);
+
         app.post('/editbook/:id', editbookPOST);
+
         app.post('/deletebook/:id', deletebook);
 
     };

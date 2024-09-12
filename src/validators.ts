@@ -25,7 +25,7 @@ export const publishBookValidator = [
 
 export const sendUserValidator = [
 
-    body('username')
+    body('name')
         .isString()
         .isLength({ min: 3, max: 25 })
         .withMessage("Username must be a string with at least 3 characters, and have a limit of 25 characters"),

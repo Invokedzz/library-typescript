@@ -2,7 +2,7 @@
 <div class="chatblock">
     <div class="box">
         <h2>User Profile Accounts</h2>
-        <form action="/senduser" method="POST" class="profile-form">
+        <form action="" method="POST" class="profile-form">
 
             {{#each user}}
 
@@ -26,9 +26,10 @@
                 <input type="text" name="favoritegenre" value="{{favoritegenre}}" disabled required>
             </div>
 
+            <button type="submit">Edit profile</button>
+
             {{/each}}
 
-            <button type="submit">Edit profile</button>
         </form>
     </div>
 </div>

@@ -286,3 +286,11 @@ export const senduserID = async (req: Request, res: Response): Promise <void> =>
     };
 
 };
+
+export const edituserprofile = async (req: Request, res: Response): Promise <void> => {
+
+};
+
+export const deleteuserprofile = async (req: Request, res: Response): Promise <void> => {
+
+};
