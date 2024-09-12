@@ -4,6 +4,8 @@ import { engine } from "express-handlebars";
 
 import { useraccount } from "./routes";
 
+import { mainprofile } from "./routes";
+
 import helmet from "helmet";
 
 import { sendUser } from "./routes";
@@ -58,7 +60,7 @@ export class server {
 
         app.get('/', homepage);
         app.get('/insertbook', publishBookValidator, addbook);
-        app.get('/profile', sendUserValidator, useraccount);
+        app.get('/profile', sendUserValidator);
         app.get('/list', booklist);
         app.get('/editbook/:id', editbook);
 
@@ -68,7 +70,7 @@ export class server {
 
         this.middlewares();
 
-        app.post("/receiveaccount/:id", sendUser, sendUserValidator);
+        
         app.post('/bookreceived', publishBookValidator, publishBook);
         app.post('/editbook/:id', editbookPOST);
         app.post('/deletebook/:id', deletebook);

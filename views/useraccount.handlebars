@@ -2,15 +2,17 @@
     <div class="chatblock">
         <div class="box">
             <h2>User Profile Settings</h2>
-            <form action="/profile/{{id}}" method="POST" class="profile-form">
+            <form action="" method="POST" class="profile-form">
+
+
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" name="name" placeholder="Username" value="{{this.name}}" required>
+                    <input type="text" name="name" placeholder="Username" value="{{name}}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" placeholder="user@example.com" value="{{this.email}}" required>
+                    <input type="email" name="email" placeholder="user@example.com" value="{{email}}" required>
                 </div>
                 
                 <div class="form-group">
