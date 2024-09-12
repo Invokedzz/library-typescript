@@ -1,0 +1,37 @@
+ <section>
+        <div class="chatblock">
+            <div class="box">
+
+<form action="/editbook/{{id}}" method="POST" class="book-form">
+
+    {{#each rows}}
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" value="{{title}}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="author">Author</label>
+        <input type="text" name="author" value="{{author}}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" name="year" value="{{year}}" />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea name="description">{{description}}</textarea>
+    </div>
+
+    <button type="submit">Save Changes</button>
+
+    {{/each}}
+
+</form>
+
+            </div>
+        </div>
+    </section>

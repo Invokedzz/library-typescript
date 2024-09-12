@@ -70,7 +70,30 @@ export const booklist = async (req: Request, res: Response): Promise <void | boo
 
 };
 
+export const editbook = async (req: Request, res: Response): Promise <void> => {
 
+    const id = req.params.id;
+    
+    try {
+
+        const [rows] = await createPool.query("SELECT * FROM books WHERE id = ?", [id]);
+
+        res.render('editbook', { rows, id });
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
+
+};
+
+export const editbookPOST = async (req: Request, res: Response): Promise <void | boolean> => {
+
+    const id = req.params.id;
+
+};
 
 export const deletebook = async (req: Request, res: Response): Promise <void | boolean> => {
 

@@ -8,6 +8,8 @@ import helmet from "helmet";
 
 import { sendUser } from "./routes";
 
+import { editbook } from "./routes";
+
 import { publishBook } from "./routes";
 
 import { homepage } from "./routes";
@@ -56,6 +58,7 @@ export class server {
         app.get('/insertbook', publishBookValidator, addbook);
         app.get('/profile', sendUserValidator, useraccount);
         app.get('/list', booklist);
+        app.get('/editbook/:id', editbook);
 
     };
 
