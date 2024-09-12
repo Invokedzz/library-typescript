@@ -8,7 +8,7 @@ import { createprofile } from "./routes";
 
 import helmet from "helmet";
 
-import { sendUser } from "./routes";
+import { senduserID } from "./routes";
 
 import { editbook } from "./routes";
 
@@ -61,6 +61,7 @@ export class server {
         app.get('/', homepage);
         app.get('/insertbook', publishBookValidator, addbook);
         app.get('/profile', sendUserValidator, useraccount);
+        app.get('/newprofile', sendUserValidator, senduserID);
         app.get('/list', booklist);
         app.get('/editbook/:id', editbook);
 

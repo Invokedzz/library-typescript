@@ -222,17 +222,13 @@ export const useraccount = (req: Request, res: Response): void => {
 
 export const createprofile = async (req: Request, res: Response): Promise <void> => {
     
-    const id = req.params.id;
-
     const name: string = req.body.name;
 
-    const email = req.body.email;
+    const email: string = req.body.email;
 
-    const favoritegenre = req.body.favoritegenre;
+    const favoritebook: string = req.body.favoritebook;
 
-    const favoritebook = req.body.favoritebook;
-
-    let userCreated = false;
+    const favoritegenre: string = req.body.favoritegenre;
 
     try {
 
@@ -240,10 +236,11 @@ export const createprofile = async (req: Request, res: Response): Promise <void>
 
         try {
 
-            await connect.query('INSERT INTO users (name, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)', [name, email, favoritebook, favoritegenre]);
-            const [valueid] =await connect.query('SELECT * FROM users WHERE id = ?', [id]);
-            userCreated = true;
-            res.render('receiveuser', {name, email, favoritebook, favoritegenre, valueid, userCreated});
+            const insertDATA = `INSERT INTO users (name, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)`;
+
+            await connect.query(insertDATA, [name, email, favoritebook, favoritegenre]);
+
+            res.render('receiveuser', {name});
 
         } finally {
 
@@ -260,6 +257,36 @@ export const createprofile = async (req: Request, res: Response): Promise <void>
 
 };
 
-export const sendUser = (req: Request, res: Response): void => {
+export const senduserID = async (req: Request, res: Response): Promise <void> => {
+
+    let verifiedUser = false;
+
+    try {
+
+        const id = req.params.id;
+        const connect = await createPool.getConnection();
+
+        try {
+
+            const [rowsusers] = await connect.query("SELECT * FROM users");
+
+            const [getid] = await connect.query("SELECT id FROM users WHERE id = ?", [id]);
+
+            verifiedUser = true;
+
+            res.render('profile', {user: rowsusers, id: getid, verifiedUser});
+
+        } finally {
+
+            connect.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
