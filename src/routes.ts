@@ -70,6 +70,8 @@ export const booklist = async (req: Request, res: Response): Promise <void | boo
 
 };
 
+
+
 export const deletebook = async (req: Request, res: Response): Promise <void | boolean> => {
 
     const id = req.params.id;
