@@ -2,31 +2,31 @@ import express from "express";
 
 import { engine } from "express-handlebars";
 
-import { useraccount } from "./routes";
+import { 
 
-import { createprofile } from "./routes";
+    useraccount,
+     createprofile,
+      senduserID,
+       editbook,
+        publishBook,
+         editbookPOST,
+          homepage,
+           booklist,
+            deletebook,
+             addbook
+
+             } from "./routes";
 
 import helmet from "helmet";
 
-import { senduserID } from "./routes";
+import { 
 
-import { editbook } from "./routes";
+    sendUserValidator,
+     publishBookValidator
 
-import { publishBook } from "./routes";
+     } from "./validators";
 
-import { editbookPOST } from "./routes";
-
-import { homepage } from "./routes";
-
-import { booklist } from "./routes";
-
-import { deletebook } from "./routes";
-
-import { addbook } from "./routes";
-
-import { sendUserValidator } from "./validators";
-
-import { publishBookValidator } from "./validators";
+import { validatebody } from "./validationmiddleware";
 
 import path from "path";
 
@@ -59,7 +59,7 @@ export class server {
     private serverGETmethod (): void {
 
         app.get('/', homepage);
-        
+
         app.get('/insertbook', publishBookValidator, addbook);
 
         app.get('/profile', sendUserValidator, useraccount);
@@ -76,11 +76,11 @@ export class server {
 
         this.middlewares();
 
-        app.post('/senduser', sendUserValidator, createprofile);
+        app.post('/senduser', sendUserValidator, validatebody, createprofile);
 
-        app.post('/bookreceived', publishBookValidator, publishBook);
+        app.post('/bookreceived', publishBookValidator, validatebody, publishBook);
 
-        app.post('/editbook/:id', editbookPOST);
+        app.post('/editbook/:id', validatebody, editbookPOST);
 
         app.post('/deletebook/:id', deletebook);
 
