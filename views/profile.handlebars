@@ -1,35 +1,35 @@
-<section></section>
-    <div class="chatblock">
-        <div class="box">
-            <h2>User Profile Settings</h2>
-            <form action="/senduser" method="POST" class="profile-form">
+<section>
+<div class="chatblock">
+    <div class="box">
+        <h2>User Profile Accounts</h2>
+        <form action="/senduser" method="POST" class="profile-form">
 
-                {{#each user}}
+            {{#each user}}
 
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" name="name" value="{{name}}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email"  value="{{email}}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="favoritebook">Favorite book:</label>
-                    <input type="text" name="favoritebook"  value="{{favoritebook}}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="favoritegenre">Favorite genre:</label>
-                    <input type="text" name="favoritegenre" value="{{favoritegenre}}" required>
-                </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="name" value="{{name}}" disabled required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{email}}" disabled required>
+            </div>
+            
+            <div class="form-group">
+                <label for="favoritebook">Favorite book:</label>
+                <input type="text" name="favoritebook" value="{{favoritebook}}" disabled required>
+            </div>
+            
+            <div class="form-group">
+                <label for="favoritegenre">Favorite genre:</label>
+                <input type="text" name="favoritegenre" value="{{favoritegenre}}" disabled required>
+            </div>
 
-                {{/each}}
-                
-                <button type="submit">Edit profile</button>
-            </form>
-        </div>
+            {{/each}}
+
+            <button type="submit">Edit profile</button>
+        </form>
     </div>
+</div>
 </section>

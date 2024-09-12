@@ -259,8 +259,6 @@ export const createprofile = async (req: Request, res: Response): Promise <void>
 
 export const senduserID = async (req: Request, res: Response): Promise <void> => {
 
-    let verifiedUser = false;
-
     try {
 
         const id = req.params.id;
@@ -272,9 +270,7 @@ export const senduserID = async (req: Request, res: Response): Promise <void> =>
 
             const [getid] = await connect.query("SELECT id FROM users WHERE id = ?", [id]);
 
-            verifiedUser = true;
-
-            res.render('profile', {user: rowsusers, id: getid, verifiedUser});
+            res.render('profile', {user: rowsusers, id: getid});
 
         } finally {
 
