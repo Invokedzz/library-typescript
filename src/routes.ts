@@ -322,10 +322,30 @@ export const senduserID = async (req: Request, res: Response): Promise <void> =>
 
 // Um dia posso fazer mais funcionalidades, sei la
 
-export const edituserprofile = async (req: Request, res: Response): Promise <void> => {
+export const deleteuser = async (req: Request, res: Response): Promise <void> => {
 
-};
+    try {
 
-export const deleteuserprofile = async (req: Request, res: Response): Promise <void> => {
+        const id = req.params.id;
+        const connect = await createPool.getConnection();
+
+        try {
+
+            await connect.query("DELETE FROM users WHERE id = ?", [id]);
+
+            res.redirect('/');
+
+        } finally {
+
+            connect.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("Something went wrong: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };

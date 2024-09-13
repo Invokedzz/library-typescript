@@ -2,7 +2,9 @@
 <div class="chatblock">
     <div class="box">
         <h2>User Profile Accounts</h2>
-        <form action="" method="POST" class="profile-form">
+
+        <div class="profile-form">
+
 
             {{#each user}}
 
@@ -26,9 +28,20 @@
                 <input type="text" name="favoritegenre" value="{{favoritegenre}}" disabled required>
             </div>
 
+            <form action="/deleteuser/{{id}}" method="POST">
+
+                <button type="submit">Delete User</button>
+
+            </form>
+
+            {{else}}
+
+            <p>No users found.</p>
+
             {{/each}}
 
-        </form>
+            </div>
+
     </div>
 </div>
 </section>

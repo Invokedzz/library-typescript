@@ -13,7 +13,8 @@ import {
           homepage,
            booklist,
             deletebook,
-             addbook
+             addbook,
+             deleteuser
 
              } from "./routes";
 
@@ -119,6 +120,8 @@ export class server {
         app.post('/editbook/:id', editbookPOST);
 
         app.post('/deletebook/:id', deletebook);
+
+        app.post('/deleteuser/:id', deleteuser);
 
     };
 
