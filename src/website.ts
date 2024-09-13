@@ -112,8 +112,6 @@ export class server {
 
     private serverPOSTmethod (): void {
 
-        this.middlewares();
-
         app.post('/senduser', sendUserValidator, createprofile);
 
         app.post('/bookreceived', publishBookValidator, publishBook);
@@ -128,13 +126,21 @@ export class server {
 
         this.serverGETmethod();
 
+        this.middlewares();
+
         this.protection();
         
         this.serverPOSTmethod();
 
-        app.listen (port, (): void => {
-            console.log(`http://localhost:${port}`);
-        });
+        if (require.main === module) {
+
+            app.listen (port, (): void => {
+                console.log(`http://localhost:${port}`);
+            });
+
+        };
+
+        module.exports = app;
 
     };
 

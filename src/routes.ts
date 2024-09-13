@@ -168,6 +168,8 @@ export const publishBook = async (req: Request, res: Response): Promise <void | 
         return false;
     };
 
+    let response = false;
+
     const title: string = req.body.title;
 
     const author: string = req.body.author;
