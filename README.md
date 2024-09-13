@@ -1,18 +1,19 @@
 # library-typescript
  Sistema de bibliotecas para treino de CRUD
 
-In this personal project, I created a library - where the user can insert books, edit and delete them.
-For the creation of this whole thing, I used the following technologies:
+In this personal project, I created a library system where users can add, edit, and delete books. 
+
+For the development of this project, I utilized the following technologies:
 
 - TypeScript;
-- Node.JS + Express;
+- Node.js with Express;
 - MySQL;
 - Handlebars;
 - CSS.
 
-Also, I used a lot of libraries, such as: Dotenv, Zod, Express-Session and Limiter (to create a safer app, overall).
+I also incorporated several libraries, such as Dotenv, Zod, Express-Session, and Limiter, to enhance the application's security.
 
-This project was super fun to build, and made me learn a lot about CRUD (create, read, update and delete) and MySQL.
+Building this project was incredibly enjoyable and provided me with valuable experience in CRUD operations (create, read, update, and delete) and MySQL.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
