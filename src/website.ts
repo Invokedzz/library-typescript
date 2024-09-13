@@ -19,6 +19,8 @@ import {
 
 import helmet from "helmet";
 
+import rateLimit from "express-rate-limit";
+
 import { 
 
     sendUserValidator,
@@ -46,6 +48,19 @@ app.set('views', path.join(__dirname, '../views'));
 const port = process.env.PORT || 8443;
 
 export class server {
+
+    private protection (): void {
+
+        const limiter = rateLimit({
+
+            windowMs: 15 * 60 * 1000,
+            max: 100,
+
+        });
+
+        app.use(limiter);
+
+    };
 
     private middlewares(): void {
 
@@ -88,6 +103,8 @@ export class server {
     public listen (): void {
 
         this.serverGETmethod();
+
+        this.protection();
         
         this.serverPOSTmethod();
 
