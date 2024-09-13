@@ -320,8 +320,6 @@ export const senduserID = async (req: Request, res: Response): Promise <void> =>
 
 };
 
-// Um dia posso fazer mais funcionalidades, sei la
-
 export const deleteuser = async (req: Request, res: Response): Promise <void> => {
 
     try {
@@ -334,6 +332,49 @@ export const deleteuser = async (req: Request, res: Response): Promise <void> =>
             await connect.query("DELETE FROM users WHERE id = ?", [id]);
 
             res.redirect('/');
+
+        } finally {
+
+            connect.release();
+
+        };
+
+    } catch (e) {
+
+        console.error("Something went wrong: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
+
+};
+
+export const edituser = async (req: Request, res: Response): Promise <void> => {
+
+    res.send("Eai pai tu ta onde??");
+
+};
+
+export const edituserPOST = async (req: Request, res: Response): Promise <void> => {
+
+    const id = req.params.id;
+
+    const name: string = req.body.name;
+
+    const email: string = req.body.email;
+
+    const favoritebook: string = req.body.favoritebook;
+
+    const favoritegenre: string = req.body.favoritegenre;
+
+    try {
+
+        const connect = await createPool.getConnection();
+
+        try {
+
+            await createPool.query("UPDATE users SET name = ?, email = ?, favoritebook = ?, favoritegenre = ? WHERE id = ?", [name, email, favoritebook, favoritegenre, id]);  
+
+            res.redirect('/newprofile');
 
         } finally {
 

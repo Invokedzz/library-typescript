@@ -14,7 +14,9 @@ import {
            booklist,
             deletebook,
              addbook,
-             deleteuser
+             deleteuser,
+             edituserPOST,
+             edituser
 
              } from "./routes";
 
@@ -107,6 +109,8 @@ export class server {
 
         app.get('/list', booklist);
 
+        app.get('/edituser/:id', edituser)
+
         app.get('/editbook/:id', editbook);
 
     };
@@ -118,6 +122,8 @@ export class server {
         app.post('/bookreceived', publishBookValidator, publishBook);
 
         app.post('/editbook/:id', editbookPOST);
+
+        app.post('/edituser/:id', edituserPOST);
 
         app.post('/deletebook/:id', deletebook);
 
