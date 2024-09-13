@@ -21,6 +21,8 @@ import helmet from "helmet";
 
 import rateLimit from "express-rate-limit";
 
+import session from "express-session";
+
 import { 
 
     sendUserValidator,
@@ -58,7 +60,30 @@ export class server {
 
         });
 
+        app.use(session({
+
+            secret: 'ILOVELINKINPARKANDTHEIRNEWSINGERHAHAHA',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: true, httpOnly: true },
+
+        }));
+
         app.use(limiter);
+
+        app.use(helmet({
+
+            contentSecurityPolicy: false,
+            dnsPrefetchControl: { allow: false },
+            frameguard: { action: 'deny' },
+            hidePoweredBy: true,
+            referrerPolicy: { policy: 'no-referrer' },
+            xssFilter: true,
+            hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
+            ieNoOpen: true,
+            noSniff: true,
+
+        }));
 
     };
 
@@ -66,7 +91,6 @@ export class server {
 
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
-        app.use(helmet());
 
     };
 

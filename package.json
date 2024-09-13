@@ -17,6 +17,7 @@
     "express": "^4.20.0",
     "express-handlebars": "^8.0.1",
     "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.1",
     "ts-loader": "^9.5.1",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/csurf": "^1.11.5",
     "@types/dotenv": "^6.1.1",
+    "@types/express-session": "^1.18.0",
     "@types/helmet": "^0.0.48",
     "@types/validator": "^13.12.1",
     "csurf": "^1.10.0",
