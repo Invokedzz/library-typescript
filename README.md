@@ -20,6 +20,6 @@ If you want to test this project, follow this steps:
 
 - Have the aplication downloaded;
 - In your terminal, type: npm run dev ./src/website.ts;
-- Enter in the LocalHost.
+- Enter on LocalHost.
 
 And It's done!
