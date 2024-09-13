@@ -350,7 +350,20 @@ export const deleteuser = async (req: Request, res: Response): Promise <void> =>
 
 export const edituser = async (req: Request, res: Response): Promise <void> => {
 
-    res.send("Eai pai tu ta onde??");
+    const id = req.params.id;
+    
+    try {
+
+        const [rows] = await createPool.query("SELECT * FROM users WHERE id = ?", [id]);
+
+        res.render('edituser', { rows, id });
+
+    } catch (e) {
+
+        console.error("Something happened: ", e);
+        throw new Error("Something went wrong. Try again.");
+
+    };
 
 };
 
