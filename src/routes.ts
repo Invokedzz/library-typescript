@@ -243,6 +243,8 @@ export const createprofile = async (req: Request, res: Response): Promise <void>
 
     const favoritegenre: string = req.body.favoritegenre;
 
+    let response = false;
+
     if (!validator.isEmail(email) && validator.isEmpty(name)) {
 
         res.send("Insert a valid e-mail and a valid name.");
@@ -267,7 +269,9 @@ export const createprofile = async (req: Request, res: Response): Promise <void>
 
             await connect.query(insertDATA, [name, email, favoritebook, favoritegenre]);
 
-            res.render('receiveuser', {name});
+            response = true;
+
+            res.render('receiveuser', {name, response});
 
         } finally {
 

@@ -217,24 +217,6 @@ footer p:last-of-type {
 }
 
 
-.profile-picture {
-    margin-bottom: 16px;
-}
-
-.profile-pic-container {
-    margin-bottom: 8px;
-    text-align: center;
-}
-
-.profile-pic-container img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #4caf50;
-    background-color: #3a3a3a;
-}
-
 .profile-form input[type="file"] {
     display: block;
     margin-top: 8px;
