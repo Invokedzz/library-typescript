@@ -36,19 +36,19 @@ import {
 
 import path from "path";
 
-const app = express();
+const application = express();
 
-app.use(express.static('public'));
+application.use(express.static('public'));
 
-app.engine('handlebars', engine({
+application.engine('handlebars', engine({
 
     defaultLayout: 'main',
     partialsDir: path.join(__dirname, '../views/partials'),
 
 }));
 
-app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, '../views'));
+application.set('view engine', 'handlebars');
+application.set('views', path.join(__dirname, '../views'));
 
 const port = process.env.PORT || 8443;
 
@@ -63,7 +63,7 @@ export class server {
 
         });
 
-        app.use(session({
+        application.use(session({
 
             secret: 'ILOVELINKINPARKANDTHEIRNEWSINGERHAHAHA',
             resave: false,
@@ -72,19 +72,28 @@ export class server {
 
         }));
 
-        app.use(limiter);
+        application.use(limiter);
 
-        app.use(helmet({
+        application.use(helmet({
 
             contentSecurityPolicy: false,
+
             dnsPrefetchControl: { allow: false },
+
             frameguard: { action: 'deny' },
+
             hidePoweredBy: true,
+
             referrerPolicy: { policy: 'no-referrer' },
+
             xssFilter: true,
+
             hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
+
             ieNoOpen: true,
+
             noSniff: true,
+
 
         }));
 
@@ -92,42 +101,43 @@ export class server {
 
     private middlewares(): void {
 
-        app.use(express.json());
-        app.use(express.urlencoded({ extended: true }));
+        application.use(express.json());
+
+        application.use(express.urlencoded({ extended: true }));
 
     };
 
     private serverGETmethod (): void {
 
-        app.get('/', homepage);
+        application.get('/', homepage);
 
-        app.get('/insertbook', publishBookValidator, addbook);
+        application.get('/insertbook', publishBookValidator, addbook);
 
-        app.get('/profile', sendUserValidator, useraccount);
+        application.get('/profile', sendUserValidator, useraccount);
 
-        app.get('/newprofile', sendUserValidator, senduserID);
+        application.get('/newprofile', sendUserValidator, senduserID);
 
-        app.get('/list', booklist);
+        application.get('/list', booklist);
 
-        app.get('/edituser/:id', edituser)
+        application.get('/edituser/:id', edituser)
 
-        app.get('/editbook/:id', editbook);
+        application.get('/editbook/:id', editbook);
 
     };
 
     private serverPOSTmethod (): void {
 
-        app.post('/senduser', sendUserValidator, createprofile);
+        application.post('/senduser', sendUserValidator, createprofile);
 
-        app.post('/bookreceived', publishBookValidator, publishBook);
+        application.post('/bookreceived', publishBookValidator, publishBook);
 
-        app.post('/editbook/:id', editbookPOST);
+        application.post('/editbook/:id', editbookPOST);
 
-        app.post('/edituser/:id', edituserPOST);
+        application.post('/edituser/:id', edituserPOST);
 
-        app.post('/deletebook/:id', deletebook);
+        application.post('/deletebook/:id', deletebook);
 
-        app.post('/deleteuser/:id', deleteuser);
+        application.post('/deleteuser/:id', deleteuser);
 
     };
 
@@ -141,19 +151,17 @@ export class server {
         
         this.serverPOSTmethod();
 
-        if (require.main === module) {
 
-            app.listen (port, (): void => {
+        application.listen (port, (): void => {
+
                 console.log(`http://localhost:${port}`);
-            });
-
-        };
-
-        module.exports = app;
+                
+        });
 
     };
 
-}
+};
+
 
 const start = new server();
 start.listen();
