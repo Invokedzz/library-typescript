@@ -50,7 +50,7 @@ application.engine('handlebars', engine({
 application.set('view engine', 'handlebars');
 application.set('views', path.join(__dirname, '../views'));
 
-const port = process.env.PORT || 8443;
+const port = process.env.PORT || 8444;
 
 export class server {
 
