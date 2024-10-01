@@ -113,3 +113,71 @@ describe ("Creating test for edit user middleware, get method", (): void => {
     });
 
 });
+
+describe ("Creating a test for the POST method in edituser middleware", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {
+
+            params: {
+
+                id: "1",
+
+            },
+
+            body: {
+
+                name: "testing",
+
+                email: "test@gmail.com",
+
+                favoritebook: "Berserk",
+
+                favoritegenre: "Fantasy",
+
+            },
+
+        };
+
+        Response = {
+
+            redirect: jest.fn(),
+
+        };
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should handle the database properly", async (): Promise <void> => {
+
+        await edituserPOSTmiddleware(Request as Request, Response as Response);
+
+        expect(mockQuery).toHaveBeenCalledWith("UPDATE users SET name = ?, email = ?, favoritebook = ?, favoritegenre = ? WHERE id = ?", ["testing", "test@gmail.com", "Berserk", "Fantasy", "1"]);
+
+        expect(Response.redirect).toHaveBeenCalledWith("/newprofile");
+
+    });
+
+    it ("Should handle the errors properly", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong"));
+
+        await expect (edituserPOSTmiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
+
+    });
+
+});
