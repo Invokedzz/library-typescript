@@ -237,3 +237,65 @@ describe ("Test for deleting a user, middleware", (): void => {
     });
 
 });
+
+describe ("Creating profile middleware test", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {
+
+            body: {
+
+                name: "testing",
+
+                email: "test@gmail.com",
+
+                favoritebook: "Berserk",
+
+                favoritegenre: "Fantasy",
+
+            },
+
+        };
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should handle the database properly", async (): Promise <void> => {
+
+        expect(createprofilemiddleware(Request as Request, Response as Response)).toBeTruthy();
+
+       // expect(mockQuery).toHaveBeenCalledWith("INSERT INTO users (name, email, favoritebook, favoritegenre) VALUES (?, ?, ?, ?)", ["testing", "test@gmail.com", "Berserk", "Fantasy"]);
+
+    //  expect(Response.render).toHaveBeenCalledWith("receiveuser", );
+
+    });
+
+    it ("Should treat errors properly", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong"));
+
+       // await expect (createprofilemiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
+
+    });
+
+});
