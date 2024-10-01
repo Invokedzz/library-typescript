@@ -8,13 +8,13 @@ import { validationResult } from "express-validator";
 
 export function homepagemiddleware (request: Request, response: Response): void {
 
-    response.render('home');
+    response.render('home'); // Done
 
 };
 
 export function addbookmiddleware (request: Request, response: Response): void {
 
-    response.render('addbook');
+    response.render('addbook'); // Done
 
 };
 
@@ -207,7 +207,7 @@ export async function publishbookmiddleware (request: Request, response: Respons
 
 export function useraccountmiddleware (request: Request, response: Response): void {
 
-    response.render('useraccount');
+    response.render('useraccount'); // Done
 
 };
 
