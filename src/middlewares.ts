@@ -278,9 +278,9 @@ export async function senduserIDmiddleware (request: Request, response: Response
 
             const [rowsusers] = await connect.query("SELECT * FROM users");
 
-            const [getid] = await connect.query("SELECT id FROM users WHERE id = ?", [id]);
+            await connect.query("SELECT id FROM users WHERE id = ?", [id]);
 
-            response.render('profile', {user: rowsusers, id: getid});
+            response.render('profile', {user: rowsusers}); // Done
 
         } finally {
 
@@ -306,7 +306,7 @@ export async function deleteusermiddleware (request: Request, response: Response
 
         try {
 
-            await connect.query("DELETE FROM users WHERE id = ?", [id]);
+            await connect.query("DELETE FROM users WHERE id = ?", [id]); // Done
 
             response.redirect('/');
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { homepagemiddleware, addbookmiddleware, useraccountmiddleware, editusermiddleware, edituserPOSTmiddleware } from "../middlewares";
+import { homepagemiddleware, addbookmiddleware, useraccountmiddleware, editusermiddleware, edituserPOSTmiddleware, deleteusermiddleware, senduserIDmiddleware, createprofilemiddleware } from "../middlewares";
 
 import { createPool } from "../database";
 
@@ -177,6 +177,62 @@ describe ("Creating a test for the POST method in edituser middleware", (): void
         mockQuery.mockRejectedValueOnce(new Error("Something went wrong"));
 
         await expect (edituserPOSTmiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
+
+    });
+
+});
+
+describe ("Test for deleting a user, middleware", (): void => {
+
+    let Request: Partial <Request>;
+
+    let Response: Partial <Response>;
+
+    const mockQuery = jest.fn();
+
+    beforeEach((): void => {
+
+        Request = {
+
+            params: {
+
+                id: "1",
+
+            },
+
+        };
+
+        Response = {
+
+            render: jest.fn(),
+
+        };
+
+        (createPool.query as jest.Mock) = mockQuery;
+
+    });
+
+    afterEach((): void => {
+
+        jest.clearAllMocks();
+
+    });
+
+    it ("Should handle the database properly", async (): Promise <void> => {
+
+        await senduserIDmiddleware(Request as Request, Response as Response);
+
+        const rowusers = [{"name": "test", "email": "test", "favoritebook": "test", "favoritegenre": "test"}];
+
+        mockQuery.mockResolvedValue([rowusers]);
+
+    });
+
+    it ("Should handle an error properly", async (): Promise <void> => {
+
+        mockQuery.mockRejectedValueOnce(new Error("Something went wrong")); 
+
+        await expect (deleteusermiddleware(Request as Request, Response as Response)).rejects.toThrow("Something went wrong. Try again.");
 
     });
 
