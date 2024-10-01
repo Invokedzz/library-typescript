@@ -333,7 +333,7 @@ export async function editusermiddleware (request: Request, response: Response):
 
         const [rows] = await createPool.query("SELECT * FROM users WHERE id = ?", [id]);
 
-        response.render('edituser', { rows, id });
+        response.render('edituser', { rows }); // Done 
 
     } catch (e) {
 
@@ -365,7 +365,7 @@ export async function edituserPOSTmiddleware (request: Request, response: Respon
 
             await createPool.query("UPDATE users SET name = ?, email = ?, favoritebook = ?, favoritegenre = ? WHERE id = ?", [name, email, favoritebook, favoritegenre, id]);  
 
-            response.redirect('/newprofile');
+            response.redirect('/newprofile'); // Done
 
         } finally {
 
